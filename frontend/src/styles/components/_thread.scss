@@ -1,0 +1,6 @@
+.thread {
+    width: 60%;
+    @include phone-format {
+        width: 100%;
+    }
+}

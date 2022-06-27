@@ -1,0 +1,11 @@
+@mixin tablet-format {
+    @media screen and (max-width: map-get($breakpoints, tablet)) {
+        @content;
+    }
+}
+
+@mixin phone-format {
+    @media screen and (max-width: map-get($breakpoints, phone)) {
+        @content;
+    }
+}

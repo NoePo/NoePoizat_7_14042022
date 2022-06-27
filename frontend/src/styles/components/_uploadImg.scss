@@ -1,0 +1,39 @@
+.upload-pic {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    margin-bottom: 10px;
+    .input-button {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        input {
+            width: 100%;
+            opacity: 0;
+            position: relative;
+            z-index: 100;
+        }
+        button {
+            transform: translateY(-24px);
+            font-family: $font-title;
+            padding: 6px;
+            background-color: #FFF;
+            color: $color-main;
+            outline: none;
+            border: 1px solid $color-main;
+            border-radius: 2px;
+            margin-bottom: calc(-24px + 10px);
+        }
+    }
+    .send-upload {
+        font-family: $font-title;
+        padding: 6px;
+        background-color: $color-main;
+        color: #FFF;
+        cursor: pointer;
+        outline: none;
+        border: none;
+        border-radius: 2px;
+    }
+}

@@ -1,0 +1,73 @@
+#sign-up-form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    @include tablet-format {
+        width: 100%;
+    }
+    .containerLabelInput {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        label {
+            margin-bottom: 10px;
+        }
+        input {
+            margin-bottom: 10px;
+            border: 1px solid $color-main;
+            border-radius: 2px;
+            padding: 4px;
+            width: 100%;
+        }
+        input:focus {
+            outline: none;
+        }
+        input:focus::placeholder {
+            color: transparent;
+        }
+        input::placeholder {
+            color: rgba($color: #000, $alpha: 0.2);
+        }
+        .error {
+            font-weight: 900;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+    }
+    .cgu {
+        margin-bottom: 10px;
+        input {
+            margin-right: 6px;
+        }
+        a {
+            color: #000;
+        }
+        .error {
+            font-weight: 900;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    }
+    .submit {
+        margin-bottom: 0;
+        font-family: $font-title;
+        padding: 10px;
+        background-color: $color-main;
+        color: #FFF;
+        cursor: pointer;
+        outline: none;
+        border: none;
+        border-radius: 2px;
+    }
+}
+
+#signUp-succeed {
+    margin: 10px 20px 20px calc(50% + 20px);
+    @include tablet-format {
+        margin: 10px 20px 20px 20px;
+    }
+    @include phone-format {
+        margin: 10px 20px 20px 20px;
+    }
+}

@@ -1,0 +1,18 @@
+@font-face {
+    font-family: "almarose-bold";
+    src: url(../assets/fonts/almarose/Almarose-Bold.otf);
+}
+
+@font-face {
+    font-family: "almarose-regular";
+    src: url(../assets/fonts/almarose/Almarose-Regular.otf);
+}
+
+$font-title: "almarose-bold", sans-serif;
+$font-text: "almarose-regular", sans-serif;
+
+$color-main: #fd2d01;
+$color-secondary: #56423D;
+$color-tertiary: #fcd4d3;
+
+$breakpoints: (tablet: 992px, phone: 768px);

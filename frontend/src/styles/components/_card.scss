@@ -1,0 +1,130 @@
+.card {
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        &__info-poster {
+            display: flex;
+            align-items: center;
+            img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-right: 10px;
+            }
+            p {
+                font-family: $font-title;
+            }
+        }
+        &__post-date {
+            font-style: italic;
+        }
+    }
+    &__content {
+        &__text {
+            margin-top: 10px;
+            word-wrap: break-word;
+        }
+        &__text-update {
+            display: flex;
+            flex-direction: column;
+            textarea {
+                margin-top: 10px;
+                border: 1px solid $color-main;
+                border-radius: 2px;
+                padding: 6px;
+                resize: none;
+            }
+            textarea:focus {
+                outline: none;
+            }
+            button {
+                font-family: $font-title;
+                padding: 6px;
+                background-color: $color-main;
+                color: #FFF;
+                cursor: pointer;
+                outline: none;
+                border: none;
+                border-radius: 2px;
+                margin: 10px 0 10px;
+            }
+        }
+        &__img {
+            display: block;
+            margin: 10px auto;
+            width: 70%;
+            object-fit: cover;
+        }
+        &__container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%;
+            margin-bottom: 10px;
+            &__video {
+                margin: 10px auto;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+            }
+        }
+    }
+    &__action {
+        display: flex;
+        justify-content: flex-end;
+        &__update-container {
+            &__edit {
+                width: 20px;
+                height: 20px;
+                margin-left: 10px;
+                cursor: pointer;
+            }
+        }
+        &__delete-container {
+            &__suppress {
+                width: 20px;
+                height: 20px;
+                margin-left: 10px;
+                cursor: pointer;
+            }
+        }
+    }
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        &__likes {
+            display: flex;
+            align-items: center;
+            img {
+                width: 20px;
+                height: 20px;
+                margin-right: 6px;
+                cursor: pointer;
+            }
+        }
+        &__comments {
+            display: flex;
+            align-items: center;
+            img {
+                width: 20px;
+                height: 20px;
+                margin-right: 6px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.by-user {
+    background-color: $color-tertiary;
+}

@@ -1,0 +1,55 @@
+.home {
+    /// LANDING PAGE (USER NOT CONNECTED)
+    @include phone-format {
+        padding: 0 10px;
+    }
+    &__landing-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__logo {
+        margin: 12vh 0 12vh;
+        width: 60%;
+    }
+    &__buttons {
+        display: flex;
+        flex-direction: column;
+        button {
+            width: 30vw;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid $color-main;
+            margin-bottom: 20px;
+            background-color: #FFF;
+            font-family: $font-title;
+            font-size: 20px;
+            transition: 0.3s;
+            @include phone-format {
+                width: 50vw;
+                font-size: 16px;
+            }
+            &:hover {
+                cursor: pointer;
+                background-color: $color-main;
+                color: #FFF;
+            }
+        }
+    }
+    &__bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -100;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        filter: brightness(50%);
+    }
+    ///HOMEPAGE (USER CONNECTED)
+    &__main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
