@@ -60,7 +60,7 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL DEFAULT './icons/user-solid.svg',
-  `is_admin` varchar(1)
+  `is_admin` int(1)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -86,7 +86,6 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `pseudo` (`pseudo`),
   ADD UNIQUE KEY `email` (`email`);
 
-
 --
 
 -- AUTO_INCREMENT pour la table `likes`
@@ -106,8 +105,11 @@ ALTER TABLE `posts`
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
+-- Mettre le compte admin
 
 
+INSERT INTO `users` (`id`, `pseudo`, `email`, `password`, `image`, `is_admin`) VALUES
+(81, `ViveGroupomania`, `groupo@groupo.com`, `$2b$10$IdH9IDmHwkWiQXyWRLREP.0DCLrKO9e3Ak5akIqlo3Hst0toRMoZm`, `./icons/user-solid.svg`, 1 )
 
 -- Contraintes pour la table `likes`
 --

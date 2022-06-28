@@ -13,7 +13,20 @@ const Card = ({ post }) => {
     const usersData = useSelector(state => state.user.getUsersValue );
     const dispatch = useDispatch();
     const uid = useContext(UidContext);
+    const userData = useSelector(state => state.user.getUserValue );
+    const admin = userData.map(function (person) {
+        if (person.is_admin === 1) {
+          return 1
+        } else {
+          return 0
+        }})
+    const is_admin = admin.toString();
 
+console.log(userData)
+console.log(admin)
+console.log(is_admin)
+
+        
     const updateItem = () => {
         if (textUpdate) {
             axios.put(`${process.env.REACT_APP_API_URL}api/post/${post.id}`, {
@@ -49,6 +62,7 @@ const Card = ({ post }) => {
         if (usersData !== null) {
             setIsLoading(false);
         }
+
     }, [usersData])
 
     
@@ -101,7 +115,7 @@ const Card = ({ post }) => {
                             </div>
                         }
                     </div>
-                    {uid === post.poster_id && (
+                    {(uid === post.poster_id || is_admin === "1") && (
                         <div className='card__action'>
                             <div className="card__action__update-container">
                                 <img className='card__action__update-container__edit'

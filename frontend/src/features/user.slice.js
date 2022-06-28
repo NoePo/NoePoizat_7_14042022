@@ -41,8 +41,11 @@ export const userSlice = createSlice({
         logUser: (state, action) => {
             state.getUserSignUpOrIn = action.payload;
         }
+        
     }
 });
+
+
 
 export const { getUser, getUsers, editUser, deleteUser, logUser } = userSlice.actions;
 export default userSlice.reducer;
