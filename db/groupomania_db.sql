@@ -109,7 +109,7 @@ ALTER TABLE `users`
 
 
 INSERT INTO `users` (`id`, `pseudo`, `email`, `password`, `image`, `is_admin`) VALUES
-(81, `ViveGroupomania`, `groupo@groupo.com`, `$2b$10$IdH9IDmHwkWiQXyWRLREP.0DCLrKO9e3Ak5akIqlo3Hst0toRMoZm`, `./icons/user-solid.svg`, 1 )
+(81, 'ViveGroupomania', 'groupo@groupo.com', '$2b$10$IdH9IDmHwkWiQXyWRLREP.0DCLrKO9e3Ak5akIqlo3Hst0toRMoZm', './icons/user-solid.svg', 1 );
 
 -- Contraintes pour la table `likes`
 --
