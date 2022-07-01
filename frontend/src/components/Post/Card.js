@@ -13,35 +13,30 @@ const Card = ({ post }) => {
     const [isUpdated, setIsUpdated] = useState(false);
     const [textUpdate, setTextUpdate] = useState(null);
     const [imageUpdate, setImageUpdate] = useState(null);
-    const usersData = useSelector(state => state.user.getUsersValue );
+    const usersData = useSelector(state => state.user.getUsersValue);
     const dispatch = useDispatch();
     const uid = useContext(UidContext);
-    const userData = useSelector(state => state.user.getUserValue );
+    const userData = useSelector(state => state.user.getUserValue);
     const admin = userData.map(function (person) {
         if (person.is_admin === 1) {
-          return 1
+            return 1
         } else {
-          return 0
-        }})
+            return 0
+        }
+    })
     const is_admin = admin.toString();
 
-console.log(setImageUpdate)
 
-console.log(userData)
-console.log(admin)
-console.log(is_admin)
-
-        
     const updateItem = () => {
+        const data = new FormData();
+        data.append('message', textUpdate);
+        if (imageUpdate) data.append('file', imageUpdate);
+        data.append('video', post.video);
         if (textUpdate || imageUpdate) {
-            axios.put(`${process.env.REACT_APP_API_URL}api/post/${post.id}`, {
-                message: textUpdate,
-                video: post.video,
-                image: imageUpdate
-            },                     
-            {withCredentials: true})
+
+            axios.put(`${process.env.REACT_APP_API_URL}api/post/${post.id}`, data, { withCredentials: true })
                 .then(res => {
-                    const dataObject = {postID: post.id, textUpdate, imageUpdate};
+                    const dataObject = { postID: post.id, textUpdate, imageUpdate: res.data.url };
                     dispatch(editPost(dataObject));
                     setIsUpdated(false);
 
@@ -50,10 +45,10 @@ console.log(is_admin)
         }
     }
 
-  
+
 
     const deleteQuote = () => {
-        axios.delete(`${process.env.REACT_APP_API_URL}api/post/${post.id}`, {withCredentials: true})
+        axios.delete(`${process.env.REACT_APP_API_URL}api/post/${post.id}`, { withCredentials: true })
             .then(res => dispatch(deletePost(post.id)))
             .catch(err => console.log(err));
     }
@@ -68,6 +63,9 @@ console.log(is_admin)
         e.target.setAttribute('src', currentSrc.replace("solid", "regular"));
     }
 
+    const handleImage = (e) => {
+        setImageUpdate(e.target.files[0]);
+    }
 
     useEffect(() => {
         if (usersData !== null) {
@@ -76,7 +74,7 @@ console.log(is_admin)
 
     }, [usersData])
 
-    
+
     return (
         <div className='card' id='myCard'>
             {isLoading ? (
@@ -96,7 +94,7 @@ console.log(is_admin)
                                     usersData.map((user) => {
                                         if (user.id === post.poster_id) return user.pseudo;
                                         else return null;
-                                    }).join("")} 
+                                    }).join("")}
                             </p>
                         </div>
                         <p className='card__header__post-date'>{dateParser(post.date)}</p>
@@ -105,14 +103,15 @@ console.log(is_admin)
                         {isUpdated === false && <p className='card__content__text'>{post.message}</p>}
                         {isUpdated === true && (
                             <div className='card__content__text-update'>
-                                <textarea defaultValue={post.message} onChange={e => setTextUpdate(e.target.value)} />
-                                <input type="file" title='' id="file" name="file" accept=".jpg, .jpeg, .png"
-                                onChange={e => setImageUpdate(e.target.value)}/>
-
-
-                                <button onClick={updateItem}>Valider modifications</button>
+                                <textarea defaultValue={post.message} onChange={e => setTextUpdate(e.target.value)} placeholder="Veuillez changer à la fois l'image et le texte"/>
+                                <input defaultValue={imageUpdate} type="file" title='' id="file" name="file" accept=".jpg, .jpeg, .png"
+                                    onChange={e => handleImage(e)} />
+                                <button onClick={() => {
+                                        if (window.confirm("Vous avec bien modifié à la fois le texte et l'image?")) {
+                                            updateItem();
+                                        }
+                                    }}>Valider modifications</button>
                             </div>
-                            
                         )}
                         {post.image !== "No img" &&
                             <img className='card__content__img' src={post.image} alt="card-pic" />
@@ -135,22 +134,22 @@ console.log(is_admin)
                         <div className='card__action'>
                             <div className="card__action__update-container">
                                 <img className='card__action__update-container__edit'
-                                src="./icons/pen-to-square-regular.svg" alt="edit" 
-                                onClick={() => setIsUpdated(!isUpdated)}
-                                onMouseOver={e => hoverIcons(e)}
-                                onMouseOut={e => unhoverIcons(e)}
+                                    src="./icons/pen-to-square-regular.svg" alt="edit"
+                                    onClick={() => setIsUpdated(!isUpdated)}
+                                    onMouseOver={e => hoverIcons(e)}
+                                    onMouseOut={e => unhoverIcons(e)}
                                 />
                             </div>
                             <div className="card__action__delete-container">
                                 <img className='card__action__delete-container__suppress'
-                                src="./icons/trash-can-regular.svg" alt="suppress" 
-                                onClick={() => {
-                                    if (window.confirm("Voulez-vous supprimer ce post ?")) {
-                                        deleteQuote();
-                                    }
-                                }}
-                                onMouseOver={e => hoverIcons(e)}
-                                onMouseOut={e => unhoverIcons(e)}
+                                    src="./icons/trash-can-regular.svg" alt="suppress"
+                                    onClick={() => {
+                                        if (window.confirm("Voulez-vous supprimer ce post ?")) {
+                                            deleteQuote();
+                                        }
+                                    }}
+                                    onMouseOver={e => hoverIcons(e)}
+                                    onMouseOut={e => unhoverIcons(e)}
                                 />
                             </div>
                         </div>
@@ -159,7 +158,7 @@ console.log(is_admin)
                         <div className="card__footer__likes">
                             <LikeButton post={post} />
                         </div>
-                        
+
                     </div>
                 </>
             )}

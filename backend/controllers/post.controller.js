@@ -48,30 +48,36 @@ module.exports.createPost = (req, res, next) => {
 
 // Modifier un post
 module.exports.updatePost = (req, res, next) => {
-    const messageUpdated = req.body.message;
-    const videoUpdated = req.body.video;
-    const imageUpdated = req.body.image;
-    const id = req.params.id;
+    const post = {
+        id : req.params.id,
+        messageUpdated: req.body.message,
+        image: req.body.image,
+        video: req.body.video,
+    }
+    
     if (req.file) {
         const sql = `UPDATE posts SET message=?, image=?, video=? WHERE id=?`;
-        db.query(sql, [messageUpdated, imageUpdated, videoUpdated, id], (err, result) => {
+        post.image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+        db.query(sql, [post.messageUpdated, post.image, post.video, post.id], (err, result) => {
             if (err) {
                 res.status(400).json({err});
             }
             else {
-                res.status(200).json(result);
+                const imageResult = {url:post.image}
+                res.status(200).json(imageResult);
             }
         });
     }
     else {
         const sql = `UPDATE posts SET message=?, image=?, video=? WHERE id=?`;
-        db.query(sql, [messageUpdated, imageUpdated, videoUpdated, id], (err, result) => {
+        db.query(sql, [post.messageUpdated, post.image, post.video, post.id], (err, result) => {
             if (err) {
                 console.log(err);
                 res.status(400).json({err});
             }
             else {
                 res.status(200).json(result);
+
             }
 
         });

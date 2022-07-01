@@ -6,3 +6,6 @@ Pour lancer l'application:
 - Aller dans le Frontend puis lancer la commande "npm install" poour installer les dépendances puis  "npm start" 
 - Importer la base de donnée groupomania_db.sql dans phpmyadmin
 
+Version XAMPP : 3.3.0
+Version PHP: 8.1.16
+
