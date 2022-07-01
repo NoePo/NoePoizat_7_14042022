@@ -69,8 +69,8 @@ module.exports.updatePost = (req, res, next) => {
         });
     }
     else {
-        const sql = `UPDATE posts SET message=?, image=?, video=? WHERE id=?`;
-        db.query(sql, [post.messageUpdated, post.image, post.video, post.id], (err, result) => {
+        const sql = `UPDATE posts SET message=? WHERE id=?`;
+        db.query(sql, [post.messageUpdated, post.id], (err, result) => {
             if (err) {
                 console.log(err);
                 res.status(400).json({err});

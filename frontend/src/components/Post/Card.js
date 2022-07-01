@@ -11,7 +11,7 @@ import axios from 'axios';
 const Card = ({ post }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [isUpdated, setIsUpdated] = useState(false);
-    const [textUpdate, setTextUpdate] = useState(null);
+    const [textUpdate, setTextUpdate] = useState(post.message);
     const [imageUpdate, setImageUpdate] = useState(null);
     const usersData = useSelector(state => state.user.getUsersValue);
     const dispatch = useDispatch();
@@ -37,6 +37,7 @@ const Card = ({ post }) => {
             axios.put(`${process.env.REACT_APP_API_URL}api/post/${post.id}`, data, { withCredentials: true })
                 .then(res => {
                     const dataObject = { postID: post.id, textUpdate, imageUpdate: res.data.url };
+                    console.log(dataObject)
                     dispatch(editPost(dataObject));
                     setIsUpdated(false);
 
@@ -106,11 +107,7 @@ const Card = ({ post }) => {
                                 <textarea defaultValue={post.message} onChange={e => setTextUpdate(e.target.value)} placeholder="Veuillez changer à la fois l'image et le texte"/>
                                 <input defaultValue={imageUpdate} type="file" title='' id="file" name="file" accept=".jpg, .jpeg, .png"
                                     onChange={e => handleImage(e)} />
-                                <button onClick={() => {
-                                        if (window.confirm("Vous avec bien modifié à la fois le texte et l'image?")) {
-                                            updateItem();
-                                        }
-                                    }}>Valider modifications</button>
+                                <button onClick ={updateItem}>Valider modifications</button>
                             </div>
                         )}
                         {post.image !== "No img" &&
