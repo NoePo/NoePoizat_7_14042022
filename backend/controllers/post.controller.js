@@ -50,9 +50,9 @@ module.exports.createPost = (req, res, next) => {
 module.exports.updatePost = (req, res, next) => {
     const messageUpdated = req.body.message;
     const videoUpdated = req.body.video;
+    const imageUpdated = req.body.image;
     const id = req.params.id;
     if (req.file) {
-        const imageUpdated = `${req.protocol}.//${req.get('host')}/images/${req.file.filename}`;
         const sql = `UPDATE posts SET message=?, image=?, video=? WHERE id=?`;
         db.query(sql, [messageUpdated, imageUpdated, videoUpdated, id], (err, result) => {
             if (err) {
@@ -64,8 +64,8 @@ module.exports.updatePost = (req, res, next) => {
         });
     }
     else {
-        const sql = `UPDATE posts SET message=?, video=? WHERE id=?`;
-        db.query(sql, [messageUpdated, videoUpdated, id], (err, result) => {
+        const sql = `UPDATE posts SET message=?, image=?, video=? WHERE id=?`;
+        db.query(sql, [messageUpdated, imageUpdated, videoUpdated, id], (err, result) => {
             if (err) {
                 console.log(err);
                 res.status(400).json({err});
@@ -73,9 +73,11 @@ module.exports.updatePost = (req, res, next) => {
             else {
                 res.status(200).json(result);
             }
+
         });
     }
 }
+
 // Supprimer un post (en vérifiant bien l'id pour que n'importe qui puisse pas supprimer)
 module.exports.deletePost = (req, res, next) => {
     const id = req.params.id;
@@ -179,6 +181,8 @@ module.exports.countAllLikes = (req, res, next) => {
         }
     });
 }
+
+
 
 module.exports.getOneLike = (req, res, next) => {
     const likeId = req.params.id;

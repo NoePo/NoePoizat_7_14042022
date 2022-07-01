@@ -10,7 +10,7 @@ import axios from 'axios';
 // Barre de navigation
 const Navbar = () => {
     const uid = useContext(UidContext);
-    // Window.innerWidth => récupère la largeur de la fen^tre
+    // Window.innerWidth => récupère la largeur de la fenêtre
     const [width, setWidth] = useState(window.innerWidth);
 
     const dispatch = useDispatch();

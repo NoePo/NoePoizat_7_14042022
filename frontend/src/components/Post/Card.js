@@ -6,10 +6,13 @@ import { UidContext } from '../AppContext';
 import { editPost, deletePost } from '../../features/post.slice';
 import axios from 'axios';
 
+
+
 const Card = ({ post }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [isUpdated, setIsUpdated] = useState(false);
     const [textUpdate, setTextUpdate] = useState(null);
+    const [imageUpdate, setImageUpdate] = useState(null);
     const usersData = useSelector(state => state.user.getUsersValue );
     const dispatch = useDispatch();
     const uid = useContext(UidContext);
@@ -22,25 +25,32 @@ const Card = ({ post }) => {
         }})
     const is_admin = admin.toString();
 
+console.log(setImageUpdate)
+
 console.log(userData)
 console.log(admin)
 console.log(is_admin)
 
         
     const updateItem = () => {
-        if (textUpdate) {
+        if (textUpdate || imageUpdate) {
             axios.put(`${process.env.REACT_APP_API_URL}api/post/${post.id}`, {
                 message: textUpdate,
-                video: post.video
-            }, {withCredentials: true})
+                video: post.video,
+                image: imageUpdate
+            },                     
+            {withCredentials: true})
                 .then(res => {
-                    const dataObject = {postID: post.id, textUpdate};
+                    const dataObject = {postID: post.id, textUpdate, imageUpdate};
                     dispatch(editPost(dataObject));
                     setIsUpdated(false);
+
                 })
                 .catch(err => console.log(err));
         }
     }
+
+  
 
     const deleteQuote = () => {
         axios.delete(`${process.env.REACT_APP_API_URL}api/post/${post.id}`, {withCredentials: true})
@@ -57,6 +67,7 @@ console.log(is_admin)
         const currentSrc = e.target.getAttribute('src');
         e.target.setAttribute('src', currentSrc.replace("solid", "regular"));
     }
+
 
     useEffect(() => {
         if (usersData !== null) {
@@ -95,8 +106,13 @@ console.log(is_admin)
                         {isUpdated === true && (
                             <div className='card__content__text-update'>
                                 <textarea defaultValue={post.message} onChange={e => setTextUpdate(e.target.value)} />
+                                <input type="file" title='' id="file" name="file" accept=".jpg, .jpeg, .png"
+                                onChange={e => setImageUpdate(e.target.value)}/>
+
+
                                 <button onClick={updateItem}>Valider modifications</button>
                             </div>
+                            
                         )}
                         {post.image !== "No img" &&
                             <img className='card__content__img' src={post.image} alt="card-pic" />

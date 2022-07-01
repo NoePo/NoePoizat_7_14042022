@@ -23,6 +23,7 @@ export const postSlice = createSlice({
         editPost: (state, action) => {
             const postToEdit = state.getPostsValue.find(post => post.id === action.payload.postID);
             postToEdit.message = action.payload.textUpdate;
+            postToEdit.image = action.payload.imageUpdate;
         },
         deletePost: (state, action) => {
             state.getPostsValue = state.getPostsValue.filter(element => element.id !== action.payload);
